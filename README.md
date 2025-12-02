@@ -334,3 +334,13 @@ $ git push --set-upstream origin feature/abc
 | Name | Description |
 |------|-------------|
 | google\_compute\_global\_ip\_address | Reserved External IP address |
+
+## Authors
+
+Module is maintained by [Nurdsoft](https://github.com/nurdsoft).
+
+---
+
+## License
+
+Apache 2 Licensed. See [LICENSE](https://github.com/nurdsoft/terraform-google-storage-bucket/tree/main/LICENSE) for full details.
