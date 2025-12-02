@@ -123,7 +123,7 @@ module "bucket" {
     environment = "dev"
   }
   name                      = "static-site"
-  domain_name               = "pacenthink.co"
+  domain_name               = "nurdsoft.co"
   create_access_logs_bucket = true
   create_load_balancer      = true
   enable_public_access      = true
