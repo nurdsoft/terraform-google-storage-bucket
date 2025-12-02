@@ -1,4 +1,4 @@
-# terraform-gcp-modules-cloud-storage-bucket
+# terraform-google-storage-bucket
 
 ## Overview
 
