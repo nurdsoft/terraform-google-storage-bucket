@@ -1,6 +1,16 @@
 # ------------------------------------------------------------------------------
 # Storage Bucket
 # ------------------------------------------------------------------------------
+
+variable "customer" {
+  description = "Customer name used for resource naming (e.g., 'acme', 'nurdsoft')"
+  type        = string
+}
+
+variable "environment" {
+  description = "Environment name used for resource naming (e.g., 'dev', 'staging', 'prod')"
+  type        = string
+}
 variable "project_id" {
   description = "The ID to give the project. If not provided, the `name` will be used."
   type        = string
