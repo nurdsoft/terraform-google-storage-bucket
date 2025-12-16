@@ -1,11 +1,11 @@
 module "bucket" {
-  source     = "../../"
-  project_id = "virendra-test-459520"
+  source      = "../../"
+  project_id  = "virendra-test-459520"
+  customer    = "nurdsoft"
+  environment = "dev"
   labels = {
-    cloud       = "gcp"
-    component   = "static-site"
-    customer    = "nurdsoft"
-    environment = "dev"
+    cloud     = "gcp"
+    component = "static-site"
   }
   name                      = "dev"
   domain_name               = "nurdsoft.co"
