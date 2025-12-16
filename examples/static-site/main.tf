@@ -1,11 +1,11 @@
 module "bucket" {
-  source     = "../../"
-  project_id = "zeus-404008"
+  source      = "../../"
+  project_id  = "zeus-404008"
+  customer    = "nurdsoft"
+  environment = "dev"
   labels = {
-    cloud       = "gcp"
-    component   = "static-site"
-    customer    = "nurdsoft"
-    environment = "dev"
+    cloud     = "gcp"
+    component = "static-site"
   }
   name                      = "static-site"
   create_access_logs_bucket = true

@@ -42,13 +42,13 @@ This Terraform configuration sets up a below listed GCP Services:
 
 ```hcl
 module "bucket" {
-  source     = "nurdsoft/storage-bucket/google"
-  project_id = "zeus-404008"
+  source      = "nurdsoft/storage-bucket/google"
+  project_id  = "zeus-404008"
+  customer    = "nurdsoft"
+  environment = "dev"
   labels = {
-    cloud       = "gcp"
-    component   = "bucket"
-    customer    = "nurdsoft"
-    environment = "dev"
+    cloud     = "gcp"
+    component = "bucket"
   }
   name = "simple-bucket"
 }
@@ -58,15 +58,15 @@ module "bucket" {
 
 ```hcl
 module "bucket" {
-  source     = "nurdsoft/storage-bucket/google"
-  project_id = "zeus-404008"
+  source      = "nurdsoft/storage-bucket/google"
+  project_id  = "zeus-404008"
+  customer    = "nurdsoft"
+  environment = "dev"
   labels = {
-    cloud       = "gcp"
-    component   = "bucket"
-    customer    = "nurdsoft"
-    environment = "dev"
+    cloud     = "gcp"
+    component = "bucket"
   }
-  name = "simple-bucket"
+  name                 = "simple-bucket"
   enable_public_access = true
 }
 ```
@@ -75,13 +75,13 @@ module "bucket" {
 
 ```hcl
 module "bucket" {
-  source     = "nurdsoft/storage-bucket/google"
-  project_id = "zeus-404008"
+  source      = "nurdsoft/storage-bucket/google"
+  project_id  = "zeus-404008"
+  customer    = "nurdsoft"
+  environment = "dev"
   labels = {
-    cloud       = "gcp"
-    component   = "static-site"
-    customer    = "nurdsoft"
-    environment = "dev"
+    cloud     = "gcp"
+    component = "static-site"
   }
   name                      = "static-site"
   create_access_logs_bucket = true
@@ -114,13 +114,13 @@ module "bucket" {
 
 ```hcl
 module "bucket" {
-  source     = "nurdsoft/storage-bucket/google"
-  project_id = "zeus-404008"
+  source      = "nurdsoft/storage-bucket/google"
+  project_id  = "zeus-404008"
+  customer    = "nurdsoft"
+  environment = "dev"
   labels = {
-    cloud       = "gcp"
-    component   = "static-site"
-    customer    = "nurdsoft"
-    environment = "dev"
+    cloud     = "gcp"
+    component = "static-site"
   }
   name                      = "static-site"
   domain_name               = "nurdsoft.co"
@@ -154,13 +154,13 @@ module "bucket" {
 
 ```hcl
 module "bucket" {
-  source     = "nurdsoft/storage-bucket/google"
-  project_id = "your-gcp-project-id"
+  source      = "nurdsoft/storage-bucket/google"
+  project_id  = "your-gcp-project-id"
+  customer    = "nurdsoft"
+  environment = "dev"
   labels = {
-    cloud       = "gcp"
-    component   = "static-site"
-    customer    = "nurdsoft"
-    environment = "dev"
+    cloud     = "gcp"
+    component = "static-site"
   }
   name                      = "dev"
   domain_name               = "nurdsoft.com"
@@ -283,6 +283,8 @@ $ git push --set-upstream origin feature/abc
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | access\_log\_prefix | The object prefix for log objects. If it's not provided, it is set to the value of var.website\_domain\_name with dots are replaced with dashes, e.g. 'site-acme-com'. | `string` | `""` | no |
+| customer | Customer name used for resource naming (e.g., 'acme', 'nurdsoft') | `string` | n/a | yes |
+| environment | Environment name used for resource naming (e.g., 'dev', 'staging', 'prod') | `string` | n/a | yes |
 | access\_logs\_expiration\_time\_in\_days | How many days to keep access logs around for before deleting them. | `number` | `30` | no |
 | access\_logs\_kms\_key\_name | A Cloud KMS key that will be used to encrypt objects inserted into the access logs bucket. If empty, the contents will not be encrypted. You must pay attention to whether the crypto key is available in the location that this bucket is created in. | `string` | `""` | no |
 | backend\_bucket | Map backend indices to list of backend maps. | <pre>map(object({<br>    description                     = optional(string)<br>    enable_cdn                      = optional(bool)<br>    custom_response_headers         = optional(list(string))<br>    timeout_sec                     = optional(number)<br>    connection_draining_timeout_sec = optional(number)<br>    session_affinity                = optional(string)<br>    affinity_cookie_ttl_sec         = optional(number)<br>    locality_lb_policy              = optional(string)<br>    compression_mode                = optional(string)<br>    edge_security_policy            = optional(string, null)<br>    cdn_policy = optional(object({<br>      cache_mode                   = optional(string)<br>      signed_url_cache_max_age_sec = optional(string)<br>      default_ttl                  = optional(number)<br>      max_ttl                      = optional(number)<br>      client_ttl                   = optional(number)<br>      negative_caching             = optional(bool)<br>      negative_caching_policy = optional(object({<br>        code = optional(number)<br>        ttl  = optional(number)<br>      }))<br>      serve_while_stale = optional(number)<br>      cache_key_policy = optional(object({<br>        query_string_whitelist = optional(list(string))<br>        include_http_headers   = optional(list(string))<br>      }))<br>      bypass_cache_on_request_headers = optional(object({<br>        header_name = optional(bool)<br>      }))<br>    }))<br>  }))</pre> | `{}` | no |

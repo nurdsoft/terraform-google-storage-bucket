@@ -2,7 +2,7 @@
 # Storage Bucket
 # ------------------------------------------------------------------------------
 locals {
-  default_name                  = "${var.labels["customer"]}-${var.labels["environment"]}"
+  default_name                  = "${var.customer}-${var.environment}"
   fqdn                          = var.create_load_balancer == true ? (var.name == "" ? coalesce(var.domain_name, var.default_domain_name) : "${var.name}.${coalesce(var.domain_name, var.default_domain_name)}") : var.name
   fqdn_managed_ssl_certificates = [local.fqdn, "www.${local.fqdn}"]
   ssl                           = var.create_load_balancer == true && var.enable_secure_connection == true

@@ -294,7 +294,7 @@ DESC
 
 variable "dns_record_type" {
   description = <<DESC
-The record type. Valid values are A, AAAA, CAA, CNAME, DS, MX, NAPTR, NS, PTR, 
+The record type. Valid values are A, AAAA, CAA, CNAME, DS, MX, NAPTR, NS, PTR,
 SOA, SPF, SRV and TXT.
 DESC
   type        = string

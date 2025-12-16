@@ -1,3 +1,13 @@
+variable "customer" {
+  description = "Customer name used for resource naming (e.g., 'acme', 'nurdsoft')"
+  type        = string
+}
+
+variable "environment" {
+  description = "Environment name used for resource naming (e.g., 'dev', 'staging', 'prod')"
+  type        = string
+}
+
 variable "name" {
   description = "The name of bucket_kms_key_name bucket."
   type        = string
@@ -103,8 +113,8 @@ variable "log_object_prefix" {
 }
 
 variable "website" {
-  type = map(any)
-  default = {}
+  type        = map(any)
+  default     = {}
   description = "Map of website values. Supported attributes: main_page_suffix, not_found_page"
 }
 
