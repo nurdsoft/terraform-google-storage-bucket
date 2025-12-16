@@ -1,6 +1,6 @@
 module "bucket" {
   source      = "../../"
-  project_id  = "virendra-test-459520"
+  project_id  = "test-459520"
   customer    = "nurdsoft"
   environment = "dev"
   labels = {
