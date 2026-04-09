@@ -266,7 +266,8 @@ $ git push --set-upstream origin feature/abc
 | Name | Version |
 |------|---------|
 | aws | 5.44.0 |
-| google | 5.16.0 |
+| google | ~> 6.0 |
+| google-beta | ~> 6.0 |
 | random | >= 2.1 |
 
 ## Providers
@@ -274,8 +275,8 @@ $ git push --set-upstream origin feature/abc
 | Name | Version |
 |------|---------|
 | aws | 5.44.0 |
-| google | 5.16.0 |
-| google-beta | n/a |
+| google | ~> 6.0 |
+| google-beta | ~> 6.0 |
 | random | >= 2.1 |
 
 ## Inputs
