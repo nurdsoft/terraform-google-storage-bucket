@@ -4,7 +4,8 @@
 locals {
   default_name                  = "${var.customer}-${var.environment}"
   fqdn                          = var.create_load_balancer == true ? (var.name == "" ? coalesce(var.domain_name, var.default_domain_name) : "${var.name}.${coalesce(var.domain_name, var.default_domain_name)}") : var.name
-  fqdn_managed_ssl_certificates = [local.fqdn, "www.${local.fqdn}"]
+  host_routes                   = [for k, v in var.backend_bucket : v.host if try(v.host, null) != null]
+  fqdn_managed_ssl_certificates = distinct(concat([local.fqdn, "www.${local.fqdn}"], local.host_routes))
   ssl                           = var.create_load_balancer == true && var.enable_secure_connection == true
   redirect_to_https             = var.create_load_balancer == true && var.redirect_to_https == true
   default_domain                = var.create_load_balancer == true && var.domain_name == ""
@@ -237,6 +238,26 @@ resource "google_compute_url_map" "https-map" {
   name            = local.https_compute_url_map
   default_service = google_compute_backend_bucket.compute_backend_bucket[keys(var.backend_bucket)[0]].self_link
   project         = var.project_id
+
+  # Host-based routing (opt-in): every backend that sets `host` gets its own
+  # host_rule -> path_matcher -> backend, so a single shared LB can serve
+  # multiple subdomains. With no `host` set anywhere, these blocks are empty and
+  # the map behaves exactly as before (single default_service) — fully
+  # backward-compatible.
+  dynamic "host_rule" {
+    for_each = { for k, v in var.backend_bucket : k => v if try(v.host, null) != null }
+    content {
+      hosts        = [host_rule.value.host]
+      path_matcher = "pm-${host_rule.key}"
+    }
+  }
+  dynamic "path_matcher" {
+    for_each = { for k, v in var.backend_bucket : k => v if try(v.host, null) != null }
+    content {
+      name            = "pm-${path_matcher.key}"
+      default_service = google_compute_backend_bucket.compute_backend_bucket[path_matcher.key].self_link
+    }
+  }
 }
 
 # LB Proxy

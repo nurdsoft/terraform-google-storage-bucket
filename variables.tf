@@ -260,6 +260,11 @@ variable "backend_bucket" {
   description = "Map backend indices to list of backend maps."
   default     = {}
   type = map(object({
+    # Hostname this backend serves (e.g. "v1.dev.example.com"). When set on one
+    # or more entries, the HTTPS url-map does host-based routing and the managed
+    # cert covers all hosts — letting a single shared LB serve several
+    # subdomains. Leave unset for the existing single-host behaviour.
+    host                            = optional(string)
     description                     = optional(string)
     enable_cdn                      = optional(bool)
     custom_response_headers         = optional(list(string))
